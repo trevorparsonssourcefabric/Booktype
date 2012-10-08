@@ -1,0 +1,67 @@
+.topmenu {
+   background-color: white;
+   padding-right: 20px;
+   font-family: Verdana;
+}
+
+.topmenu > .book-title {
+  font-weight: normal;
+  font-size: 16pt;
+  padding-left: 25px;
+  padding-top:  10px;
+}
+
+
+.topmenu > .chapter-title {
+  font-weight: normal;
+  font-size: 16pt;
+  padding-left: 10px;
+  padding-top:  10px;
+}
+
+.topmenu > .userinfo {
+ display: inline-block;
+ float: right;
+ font-size: 13px; 
+ padding-top: 8px;
+}
+
+.topmenu > .savebutton {
+ display: block;
+ float: right; 
+ font-size: 13px; 
+ padding-top: 8px;
+ margin-right: 40px;
+}
+
+.topmenu > .publishbutton {
+ display: block;
+ float: right; 
+ font-size: 13px; 
+ padding-top: 8px;
+ margin-right: 20px;
+}
+
+.menu-bar {
+  padding-left: 20px;
+  min-height: 20px;
+}
+
+.tool-bar {
+  padding-left: 20px;
+}
+ 
+.tool-bar >  .menu-item.right-align { 
+     color: black;
+     display: inline-block;
+     right: 40px; 
+     position: absolute;
+}
+
+.tool-bar >  .menu-item.user-joined { 
+    color: red;
+}
+
+.aloha-editable-active, .aloha-editable-active[contenteditable="true"]:focus {
+    outline: #80B5F2 solid 0px!important; 
+}

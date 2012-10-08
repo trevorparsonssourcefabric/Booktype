@@ -273,6 +273,23 @@ def remote_init_editor(request, message, bookid, version):
             "onlineUsers": list(onlineUsers)}
 
 
+def remote_get_chapters(request, message, bookid, version):
+
+    book = models.Book.objects.get(id=bookid)
+    book_version = book.getVersion(version)
+
+    ## get chapters
+
+    chapters = getTOCForBook(book_version)
+    holdChapters = getHoldChapters(book_version)
+
+    return {"chapters": chapters,
+            "holdChapters": holdChapters}
+
+
+#############################################################################################################
+
+
 def remote_attachments_list(request, message, bookid, version):
     """
     Calls function L{getAttachments} and returns info about attachments for the specific version of the book.
@@ -3179,6 +3196,8 @@ def remote_publish_book2(request, message, bookid, version):
         _isSet('columns')
         _isSet('column_margin')
 
+    if args['mode'] == 'book':
+        args['mode'] = 'bookjs/pdf'
 
     try:
         data = urllib.urlencode(args)

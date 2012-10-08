@@ -1,0 +1,528 @@
+{% extends "base_edit.html" %}
+{% load i18n booki_tags %}
+
+{% block header %}
+{{ request.META.SCRIPT_NAME }}
+
+<link rel="stylesheet" href="/site_static/src/css/jquery-ui/jquery.ui.all.css" type="text/css"/>
+<style type="text/css">
+   .aloha-table-wrapper div.aloha-wai-red { background-image: none !important; }
+   .aloha-toolbar { display: none !important; }
+
+#notification {
+    width: 100%;
+    z-index: 10000;
+    display: hidden;
+    position: fixed;
+    top: 10px;
+    height: 20px;
+    margin-left: auto ;
+    margin-right: auto ;
+    font-family: Verdana;
+    font-size: 12px;
+}
+
+#notification > SPAN {
+    padding: 5px;
+    border-radius: 4px;
+    position: fixed;
+    top: 10px;
+    color: white;
+    background-color: red;
+
+}
+
+.alert-box.info { 
+	background-color: #D9EDF7;
+	border-color: #BCE8F1;
+	color: #3A87AD;
+        padding-left: 10px; 
+        padding-right: 10px;
+        padding-top: 3px;
+        padding-bottom; 3px;
+   }
+
+.alert-box.info a {color: #2D779C;}
+
+</style>
+
+
+
+<script language="javascript">
+  Aloha = window.Aloha || {};
+
+  Aloha.settings = {
+                    logLevels: {'error': true, 'warn': true, 'info': false, 'debug': false},
+                    errorhandling : true,
+                    sidebar: {'disabled': true},
+                    plugins: {
+                            block: {
+                                    defaults : {
+                                            '.default-block': {
+                                                              },
+                                             'figure': {
+                                                    'aloha-block-type': 'EditableImageBlock'
+                                             },
+                                    }
+                            }
+                    },
+
+                    bundles: {
+                                // Path for custom bundle relative from require.js path
+                            user: '../demo/block'
+                    }
+        };
+</script>
+
+
+
+<script src="{{ request.META.SCRIPT_NAME }}/site_static/src/lib/require.js"></script>   
+
+<script src="{{ request.META.SCRIPT_NAME }}/site_static/src/lib/aloha.js" data-aloha-plugins="extra/toolbar,common/ui,common/format,common/paste,common/block,user/blockdemo,common/list,common/table,extra/draganddropfiles,common/image,extra/figure,extra/ribbon,extra/no-floating,extra/imagebrowser,extra/booktypeusers,extra/booktypetoc"></script>  
+
+<!--<script src="{{ request.META.SCRIPT_NAME }}/site_static/src/lib/aloha.js" data-aloha-plugins="extra/toolbar,common/ui,common/format,common/paste,common/block,user/blockdemo,common/list,common/table,extra/draganddropfiles,common/image,extra/figure,extra/ribbon,extra/no-floating,extra/booktypeusers"></script>   -->
+
+<script src="/site_static/src/lib/booktype-main.js"></script>         
+
+<link href="{{ request.META.SCRIPT_NAME }}/site_static/css/book.css" rel="stylesheet" type="text/css" />
+<script src="{{ request.META.SCRIPT_NAME }}/site_static/js/book.js" type="text/javascript"></script>
+<script src="{{ request.META.SCRIPT_NAME }}/site_static/js/book-config.js" type="text/javascript"></script>
+
+
+<link rel="stylesheet" href="{{ request.META.SCRIPT_NAME }}/site_static/src/css/aloha.css" type="text/css">
+
+<style type="text/css">
+  .toolbar-container {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      z-index: 1;
+  }
+
+  figure { counter-increment: figure; }
+  figure figcaption::before { content: "Figure 1." counter(figure) " "; font-weight: bold; }
+
+ .block  {
+        font-family: verdana;
+  	background-color: #fff;
+        padding:0;
+	border: 1px solid #9d9d9d; 
+	margin-bottom: 10px;
+}
+ .block > h4	{
+	color:#4b2582;
+	background:#fafafa;
+	border-bottom:1px solid #ebebeb;
+	font-size:12px;
+	margin:0;
+	padding: 6px 14px;
+}
+ .arrow-down {
+    display: block;
+    float: left;
+    height: 12px;
+    margin: 7px 4px 0 8px;
+    width: 12px;
+}
+#chat > form	{
+	padding: 9px;
+}
+#chat > form .form	{
+	margin: 7px 0 12px 0; 
+	height: 300px; 
+	border: 1px solid #9d9d9d; 
+	padding: 5px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset;
+}
+#chat > form input	{
+	border: 1px solid #9d9d9d; 
+	padding: 3px 0;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset;
+	margin: 2px 0 7px 0; 
+	width:99.5% !important;
+}
+
+#chat .icon {
+   background-color: blue;
+   color: white;
+   padding-right: 2px;
+   padding-left: 2px;
+   line-height: 22px;
+}
+
+#chat .icon {
+   background-color: #00BAFF !important;
+}
+
+#chat .icon, #chat .info {
+   font-size: 11px !important;
+   display: inline-block !important;
+   line-height: 16px !important;
+   padding: 0 3px !important;
+}
+
+#dialogs  ~ .ui-widget {
+    font-family: Verdana,Arial,sans-serif;
+    color: red;
+    font-size: 12px;
+}
+
+
+#panel-toc {
+  padding: 20px;
+}
+
+#panel-toc .ui-widget {
+    font-family: Verdana,Arial,sans-serif;
+    color: red;
+    font-size: 12px;
+}
+
+#panel-publish {
+  padding: 20px;
+}
+
+#panel-publish .ui-widget {
+    font-family: Verdana,Arial,sans-serif;
+    color: red;
+    font-size: 12px;
+}
+
+
+
+#chapterslist, #holdchapterslist { list-style-type: none; margin: 0; padding: 0 0 2.5em; float: left; margin-right: 10px; }
+#chapterslist li, #holdchapterslist li { margin: 0 5px 5px 5px; padding: 5px; width: 460px; }
+
+#chapterslist li, #holdchapterslist li {
+	margin:0 0 4px 0 !important;
+	min-height: 22px !important;
+	position:relative !important;
+	display:block !important;
+	cursor:move;
+	font-size: 1.0em !important	
+}
+
+#chapterslist li span.drag-handle, #holdchapterslist li span.drag-handle {
+	position:absolute !important; 
+	width:14px;
+/*	background:url(/site_static/images/drag_handle_bg.png) repeat-y 0 0; */
+	top:5px;
+	bottom:5px;
+	left:3px;
+	margin:0;
+	opacity:0.2;
+}
+#chapterslist li:hover span.drag-handle, #holdchapterslist li:hover span.drag-handle {
+	opacity:1;
+	
+}
+#chapterslist li.ui-state-default {
+	color: #484848 !important;
+	
+}
+#chapterslist li.sectionLine, #chapterslist li.sectionLine.ui-state-default {
+	background:#ede9f2 !important;
+	color:#4B2582 !important;
+}
+
+#holdchapterslist li.ui-state-default {
+	background: #fcf8f8; /* Old browsers */
+	background: -moz-linear-gradient(top,  #fcf8f8 0%, #f9f2f2 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fcf8f8), color-stop(100%,#f9f2f2)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #fcf8f8 0%,#f9f2f2 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #fcf8f8 0%,#f9f2f2 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #fcf8f8 0%,#f9f2f2 100%); /* IE10+ */
+	background: linear-gradient(top,  #fcf8f8 0%,#f9f2f2 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcf8f8', endColorstr='#f9f2f2',GradientType=0 ); /* IE6-9 */
+    border: 1px solid #d9a5a5;
+    color: #484848;
+}
+
+@charset "utf-8";
+.page {
+        border: solid 1px #cdcdcd;
+}
+
+.menu-bar, .tool-bar {
+        padding-left: 50px !important;
+        background-color: transparent !important;
+}
+
+body {
+        margin: 0;
+        margin-top: 100px;
+}
+
+.toolbar-container {
+        padding-top: 30px;
+        background-color: #fff;
+        /*position: relative;*/
+        background: url(../images/booki_logo_topleft.png) no-repeat scroll 0 0 white;
+        background-position: 100% 20px;
+
+}
+
+.topmenu {
+        background-color: transparent !important;
+}
+
+.userinfo {
+        position: absolute;
+        top:0px;
+        right: 310px;
+}
+
+a[name=publishbutton] {
+        background: #45B845 ! important;
+        border: 1px solid #45B845 ! important;
+}
+
+a[name=publishbutton]:hover {
+        border: 1px solid #32EF32 ! important;
+}
+
+a[name=savebutton] {
+        background: #71A9FF ! important;
+        border: 1px solid #71A9FF ! important;
+}
+
+a[name=savebutton]:hover {
+        border: 1px solid #369 ! important;
+}
+
+.savebutton {
+        position: absolute;
+        right: 250px;
+        top: 20px;
+}
+
+.publishbutton {
+        position: absolute;
+        right: 170px;
+        top: 20px;
+}
+
+.publishbutton span, .savebutton span {
+        color: #fff;
+}
+
+a[name=toc] {
+        font-family: verdana,arial,helvetica,code2000,sans-serif;
+        color: black;
+        text-decoration: none;
+        font-size: 15pt;
+}
+
+a[name=toc]:before {
+        content: "\21B0";
+}
+
+a[name=toc] img {
+        display: none;
+}
+
+</style>
+
+<script type="text/javascript">
+  window.BOOKTYPE.username            = "{{request.user.username|escapejs}}";
+  window.BOOKTYPE.currentBookID       = {{book.id}};
+  window.BOOKTYPE.currentBook         = "{{book.title|escapejs}}";
+  window.BOOKTYPE.currentBookURL      = "{{book.url_title|escapejs}}";
+  window.BOOKTYPE.currentChapterTitle = "{{content.title|escapejs}}";
+  window.BOOKTYPE.currentChapterID    = "{{content.id|escapejs}}";
+  
+  window.BOOKTYPE.currentVersion           = "{{book_version|escapejs}}";
+  window.BOOKTYPE.sputnikDispatcherURL     = "{% url sputnik.views.dispatcher %}";
+  window.BOOKTYPE.bookViewUrlTemplate      = "{% url book_view 'XXX' %}";
+  window.BOOKTYPE.bookDraftViewUrlTemplate = "{% url draft_book 'XXX' %}";
+  
+  window.BOOKTYPE.profileThumbnailViewUrlTemplate = "{% url view_profilethumbnail 'XXX' %}";
+  
+  Aloha.ready( function() {
+      Aloha.require(["booktype/network", "booktype/editor"], function(booktypeNetwork, booktypeEditor) {
+  
+          booktypeNetwork.subscribeToChannel("/booki/", function(message) {
+  
+          });
+ 
+
+          booktypeNetwork.subscribeToChannel("/booki/book/"+window.BOOKTYPE.currentBookID+"/"+window.BOOKTYPE.currentVersion+"/", function(message) {
+
+          });
+
+          booktypeNetwork.sendToCurrentBook({"command": "init_editor"},
+               function(data) {
+                   window.BOOKTYPE.numberOfUsers = data.users.length;
+               });
+
+
+
+          booktypeNetwork.transport.connect();
+          booktypeEditor.initEditor();
+     });
+
+
+    Aloha.jQuery('#bodypreraw').aloha();
+  });
+ 
+</script> 
+{% endblock %}
+
+{% block content %} 
+ <div style="padding-top: 50px; "></div>
+
+ <div id="dokument" class="document" style="display: none;">{% booki_format content %}</div>
+
+ <div id="booktypechat" class="block shadow" style="visibility: hidden; position: fixed; right: 5px; top: 120px; width: 220px;  border: 1px solid black; background-color: white; padding: 5px;">
+  <span class="arrow-down"></span>
+   <h4 id="chattitle">Chat</h4>
+    <div id="chat"><form action="javascript: return(0);"><div class="content" style="font-size: 10px; margin-bottom: 5px; width: 195px; height: 300px; border: 1px solid black; padding: 5px"></div><input type="text" style="width: 215px;"></form></div>
+</div>
+ </div>
+
+
+
+<div id="dialogs">
+ <div id="panel-toc" style="display: none; position: fixed; z-index: 1000; background-color: white; border: 2px solid #808080; padding: 10px;">
+  <div style="padding-bottom: 20px">
+   <div style="float: right">
+<!--     <a name="save" href="javascript:void(0)">Save</a> -->
+     <a name="cancel" href="javascript:void(0)">Close</a>
+   </div>
+
+   <div style="float: left">
+      <a name="chapter" href="javascript:void(0)">Chapter</a>
+      <a name="section" href="javascript:void(0)">Section</a>
+   <!--   <a name="import" href="javascript:void(0)">Import</a> -->
+   </div>
+
+   <div style="text-align: center" class="infomessage">
+      
+   </div>
+  </div>
+
+  <div style="clear: both; padding-top: 5px;">
+    <div style="float: left; font-size: 18px; margin-left: 10px; width: 440px; color: gray;">Table of contents</div>
+    <div style="float: left; font-size: 18px; margin-left: 30px; color: gray;">Hold chapters</div>
+  </div>
+
+  <div style="overflow: auto; clear: both; padding-top: 20px;" class="inner">
+    <ul id="chapterslist" class="connectedSortable">
+    </ul>
+
+    <ul id="holdchapterslist" class="connectedSortable">
+    </ul>
+  </div>
+ </div>
+
+
+ <div id="panel-publish" style="display: none; position: fixed; z-index: 1000; background-color: white; border: 2px solid #808080; padding: 10px;">
+  <div style="padding-bottom: 20px">
+   <div style="float: right">
+     <a name="cancel" href="javascript:void(0)">Close</a>
+   </div>
+
+   <div style="float: left">
+   <!--   <a name="import" href="javascript:void(0)">Import</a> -->
+   </div>
+
+   <div style="text-align: center" class="infomessage">
+      
+   </div>
+  </div>
+
+ <div style="margin-left: 50px; margin-right: 50px; font-size: 12pt;">
+  <h3>Publish</h3>
+  <p></p>
+
+  <form name="formexport" onsubmit="return false;">
+   <table class="publish-table" border="0" cellpadding="5" cellspacing="5">
+     <tbody>
+       <tr>
+        <td><label><input type="radio" name="publish" group="publishtype" value="book" checked="checked">Book</label></td>
+       </tr>
+    
+       <tr>
+        <td><label><input type="radio" name="publish" group="publishtype" value="ebook">Ebook</label></td>
+       </tr>
+    
+       <tr>
+        <td><label><input type="radio" name="publish" group="publishtype" value="lulu">Lulu.com</label></td>
+       </tr>
+    
+       <tr>
+        <td><label><input type="radio" name="publish" group="publishtype" value="pdf">Screen PDF</label></td>
+       </tr>
+
+       <tr>
+        <td><label><input type="radio" name="publish" group="publishtype" value="odt">Open Document Text</label></td>
+       </tr>
+      </tbody>
+     </table>
+    </form>
+    <p> 
+     <a href="javascript:void(0)" name="publishbook">Publish this Book</a>
+    </p>
+
+    <p class="downloadlink">
+      
+    </p>
+   </div>
+
+ </div>
+
+
+ <div id="dialog-chapter" title="Create new chapter" style="display: none;">
+     <p>
+       <form onsubmit="return false;" action="javascript:void(0)"><input type="text" style="width: 100%" name="title"></form>
+     </p>
+ </div>
+
+ <div id="dialog-section" title="Create new section" style="display: none;">
+     <p>
+       <form onsubmit="return false;" action="javascript:void(0)"><input type="text" style="width: 100%" name="title"></form>
+     </p>
+ </div>
+
+ <div id="dialog-confirm" title="Exit editor?" style="display: none">
+	<p>Do you want to exit editor ?</p>
+ </div>
+
+<ul style="display: none">
+<li class="sectionLine template ui-state-default"><span class="drag-handle"></span>
+  <div class="cont">
+    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+      <tr>
+        <td width="70%"><div class="title">name</div></td>
+        <td width="15%">
+        <td width="15%"><div class="extra"></div></td>
+      </tr>
+    </table>
+  </div>
+</li>
+
+<li class="chapterLine template ui-state-default"><span class="drag-handle"></span>
+  <div class="cont">
+    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+      <tr>
+        <td width="70%"><div class="title">name</div></td>
+        <td width="15%" class="edit">
+            <div class="chapterLinks"><a class="viewLink" style="font-size: 12px" href="javascript:void(0)">{% trans "VIEW" %}</a></div>
+        </td>
+        <!--
+          <td width="15%"><div class="status"><a class="statusLink statusName" href="javascript:void(0)">status</a></div>
+            <div class="extra"></div>
+          </td>
+        -->
+      </tr>
+    </table>
+  </div>
+</li>
+</ul>
+
+<div id="notification" align="center"></div>
+</div>
+
+ 
+</div>
+{% endblock %} 

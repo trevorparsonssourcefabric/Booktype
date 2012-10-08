@@ -136,8 +136,10 @@ def edit_book(request, bookid, version=None):
     except AttributeError:
         from booki import constants
         publish_options = constants.PUBLISH_OPTIONS
+
+    content = models.Chapter.objects.filter(book__url_title=bookid)[0]
         
-    return render_to_response('editor/edit_book.html', {"book": book, 
+    return render_to_response('editor/edit_book_aloha.html', {"book": book, 
                                                         "book_version": book_version.getVersion(),
                                                         "version": book_version,
 
@@ -150,6 +152,7 @@ def edit_book(request, bookid, version=None):
                                                         "tabs": tabs,
                                                         "is_browser_supported": isBrowserSupported,
                                                         "publish_options": publish_options,
+                                                              "content": content,
                                                         "request": request})
 
 def thumbnail_attachment(request, bookid, attachment, version=None):

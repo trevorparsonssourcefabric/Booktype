@@ -609,7 +609,25 @@ def create_book(request, username):
                 is_hidden = True
             else:
                 is_hidden = False
+
             book.hidden = is_hidden
+
+            stat = models.BookStatus.objects.filter(book=book, name="new")[0]
+
+            import datetime
+
+            now = datetime.datetime.now()
+
+            chapter = models.Chapter(book = book,
+                                     version = book.version,
+                                     url_title = 'sample-chapter',
+                                     title = 'Sample chapter',
+                                     status = stat,
+                                     content = '<h1>Sample chapter</h1><p></p>',
+                                     created = now,
+                                     modified = now)
+            chapter.save()
+
             
             from django.core.files import File
 
