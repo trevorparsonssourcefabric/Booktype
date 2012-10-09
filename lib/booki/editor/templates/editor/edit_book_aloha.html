@@ -373,7 +373,8 @@ a[name=toc] img {
 {% block content %} 
  <div style="padding-top: 50px; "></div>
 
- <div id="dokument" class="document" style="display: none;">{% booki_format content %}</div>
+ <!-- By default show no document  -->
+ <div id="dokument" class="document" style="display: none;">&nbsp; &nbsp;</div>
 
  <div id="booktypechat" class="block shadow" style="visibility: hidden; position: fixed; right: 5px; top: 120px; width: 220px;  border: 1px solid black; background-color: white; padding: 5px;">
   <span class="arrow-down"></span>
