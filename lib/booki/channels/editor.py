@@ -3060,7 +3060,7 @@ def remote_publish_book2(request, message, bookid, version):
         return s
  
 
-    if publishMode == 'book' and message.get("publish_mode", "") != 'lulu':
+#    if publishMode == 'book' and message.get("publish_mode", "") != 'lulu':
 #        _isSet('booksize')
 #        _isSet('custom_width')
 #        _isSet('custom_height')
