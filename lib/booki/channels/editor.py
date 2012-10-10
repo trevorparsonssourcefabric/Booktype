@@ -3061,41 +3061,41 @@ def remote_publish_book2(request, message, bookid, version):
  
 
     if publishMode == 'book' and message.get("publish_mode", "") != 'lulu':
-        _isSet('booksize')
-        _isSet('custom_width')
-        _isSet('custom_height')
-        _isSet('p_pagebreak')
-        _isSet('footnotes_pagebreak')
-        _isSet('grey_scale')
-        _isSet('page-numbers')
-        _isSet('rotate')
-        _isSet('embed-fonts')
-        _isSet('allow-breaks')
-        _isSet('toc_header')
-        _isSet('top_margin')
-        _isSet('side_margin')
-        _isSet('bottom_margin')
-        _isSet('gutter')
-        _isSet('columns')
-        _isSet('column_margin')
+#        _isSet('booksize')
+#        _isSet('custom_width')
+#        _isSet('custom_height')
+#        _isSet('p_pagebreak')
+#        _isSet('footnotes_pagebreak')
+#        _isSet('grey_scale')
+#        _isSet('page-numbers')
+#        _isSet('rotate')
+#        _isSet('embed-fonts')
+#        _isSet('allow-breaks')
+#        _isSet('toc_header')
+#        _isSet('top_margin')
+#        _isSet('side_margin')
+#        _isSet('bottom_margin')
+#        _isSet('gutter')
+#        _isSet('columns')
+#        _isSet('column_margin')
 
         # in this case, just the css you entered
-        if _getValue('custom_override') == 'on':
-            _css = config.getConfiguration('BOOKTYPE_CSS_BOOK', '')
+#        if _getValue('custom_override') == 'on':
+#            _css = config.getConfiguration('BOOKTYPE_CSS_BOOK', '')
+#
+#            _css += _getValue('additional_css') or ''
+#        else:
+#            _css = config.getConfiguration('BOOKTYPE_CSS_BOOK', '')
 
-            _css += _getValue('additional_css') or ''
-        else:
-            _css = config.getConfiguration('BOOKTYPE_CSS_BOOK', '')
+#            _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
+#            _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
+#            _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
+#            _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
+#            _css += _formatCSS("PRE", _getValue('pre_font-family'), _getValue('pre_font-size'))
+#            _css += _getValue('additional_css') or ''
 
-            _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
-            _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
-            _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
-            _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
-            _css += _formatCSS("PRE", _getValue('pre_font-family'), _getValue('pre_font-size'))
-            _css += _getValue('additional_css') or ''
-
-        if _getValue('control-css') == 'on':
-            args['css'] = _css
+#        if _getValue('control-css') == 'on':
+#            args['css'] = _css
 
 
     if publishMode == 'book' and message.get("publish_mode", "") == 'lulu':
@@ -3160,41 +3160,41 @@ def remote_publish_book2(request, message, bookid, version):
         args['css'] = _css
 
     if publishMode == 'web':
-        _isSet('booksize')
-        _isSet('custom_width')
-        _isSet('custom_height')
+#        _isSet('booksize')
+#        _isSet('custom_width')
+#        _isSet('custom_height')
 
-        if _getValue('custom_override') == 'on':
-            _css = config.getConfiguration('BOOKTYPE_CSS_PDF', '')
+#        if _getValue('custom_override') == 'on':
+#            _css = config.getConfiguration('BOOKTYPE_CSS_PDF', '')
 
-            _css += _getValue('additional_css') or ''
-        else:
-            _css = config.getConfiguration('BOOKTYPE_CSS_PDF', '')
+#            _css += _getValue('additional_css') or ''
+#        else:
+#            _css = config.getConfiguration('BOOKTYPE_CSS_PDF', '')
 
-            _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
-            _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
-            _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
-            _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
-            _css += _formatCSS("PRE", _getValue('pre_font-family'), _getValue('pre_font-size'))
-            _css += _getValue('additional_css') or ''
+#            _css += _formatCSS("BODY, P", _getValue('body_font-family'), _getValue('body_font-size'))
+#            _css += _formatCSS("H1", _getValue('h1_font-family'), _getValue('h1_font-size'), _getValue('h1_text-transform'), _getValue('h1_font-weight'))
+#            _css += _formatCSS("H2", _getValue('h2_font-family'), _getValue('h2_font-size'), _getValue('h2_text-transform'), _getValue('h2_font-weight'))
+#            _css += _formatCSS("H3", _getValue('h3_font-family'), _getValue('h3_font-size'), _getValue('h3_text-transform'), _getValue('h3_font-weight'))
+#            _css += _formatCSS("PRE", _getValue('pre_font-family'), _getValue('pre_font-size'))
+#            _css += _getValue('additional_css') or ''
 
-        args['css'] = _css
+#        args['css'] = _css
 
         # fix rotate u pdf verziji
-        _isSet('p_pagebreak')
-        _isSet('footnotes_pagebreak')
-        _isSet('grey_scale')
-        _isSet('page-numbers')
-        _isSet('rotate')
-        _isSet('embed-fonts')
-        _isSet('allow-breaks')
-        _isSet('toc_header')
-        _isSet('top_margin')
-        _isSet('side_margin')
-        _isSet('bottom_margin')
-        _isSet('gutter')
-        _isSet('columns')
-        _isSet('column_margin')
+#        _isSet('p_pagebreak')
+#        _isSet('footnotes_pagebreak')
+#        _isSet('grey_scale')
+#        _isSet('page-numbers')
+#        _isSet('rotate')
+#        _isSet('embed-fonts')
+#        _isSet('allow-breaks')
+#        _isSet('toc_header')
+#        _isSet('top_margin')
+#        _isSet('side_margin')
+#        _isSet('bottom_margin')
+#        _isSet('gutter')
+#        _isSet('columns')
+#        _isSet('column_margin')
 
     if args['mode'] == 'book':
         args['mode'] = 'bookjs/pdf'
