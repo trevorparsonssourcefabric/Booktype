@@ -3159,7 +3159,7 @@ def remote_publish_book2(request, message, bookid, version):
 
         args['css'] = _css
 
-    if publishMode == 'web':
+#    if publishMode == 'web':
 #        _isSet('booksize')
 #        _isSet('custom_width')
 #        _isSet('custom_height')
