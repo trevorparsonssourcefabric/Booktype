@@ -1,5 +1,5 @@
 {% extends "base_edit.html" %}
-{% load i18n booki_tags messaging_tags %}
+{% load i18n booki_tags  %}
 
 {% block header %}
 {{ request.META.SCRIPT_NAME }}
@@ -491,10 +491,6 @@ a[name=toc] img {
 
  <div id="dialog-confirm" title="Exit editor?" style="display: none">
 	<p>Do you want to exit editor ?</p>
- </div>
-
- <div id="invisible-message" style="display: none;">
-   {% messagefield_button %}
  </div>
 
 <ul style="display: none">
