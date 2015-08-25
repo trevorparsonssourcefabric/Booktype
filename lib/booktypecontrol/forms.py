@@ -282,8 +282,7 @@ class LicenseForm(BaseControlForm, forms.ModelForm):
 
 
 class BookSettingsForm(BaseControlForm, forms.Form):
-    hlp_visible = 'If it is turned on then all\
-        books will be visible to everyone.'
+    hlp_visible = 'Tick this to make newly created books visible to everyone by default. Authors can still opt to make their books private.'
     hlp_track = 'If it is turned on then track changes will be\
         enabled for all the users.'
     visible = forms.BooleanField(
